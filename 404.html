@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Илья & Катя</title>
+<link href="https://fonts.googleapis.com/css2?family=Bad+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent-red:#c00000;
+  --shadow:0 12px 30px rgba(0,0,0,.15);
+}
+@font-face {
+  font-family: 'Angelica Regular';
+  src: url('fonts/ofont.ru_Angelica.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Isadora_Cyr';
+  src: url('fonts/ofont.ru_Isadora Cyr .ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body{
+  margin:0;
+  font-family: 'Isadora_Cyr', serif;  
+  background:white;
+  color:black;
+  overflow-x:hidden;
+  position: relative;
+}
+
+section{padding:56px 20px; position: relative; z-index: 1;}
+.center{text-align:center}
+
+h2 {
+  font-family: 'Isadora_Cyr', serif;  
+  font-size: 60px; /* Например */
+  margin-bottom: 10px;
+}
+
+#intro{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+.ona, .skazala{
+  position:absolute;
+  opacity:0;
+  animation:fadeInUp .8s ease forwards;
+}
+
+.ona{top:10px; left:40px;  font-family: 'Angelica Regular', serif; font-size:280px;}
+.skazala{top:160px; left:40px;font-family: 'Angelica Regular', serif; font-size:260px; animation-delay:0.8s;}
+
+.da-text {
+  font-family: 'Angelica Regular', serif; 
+  font-size: 350px;
+  opacity: 0;
+  animation: fadeInUp .8s ease forwards;
+  margin-top:300px;
+  text-align: center;
+  font-weight: 400;
+}
+
+.da-letter{display:inline-block;opacity:0;animation:fadeIn 0.6s ease forwards}
+.da-letter:nth-child(1){animation-delay:1.6s}
+.da-letter:nth-child(2){animation-delay:2.2s}
+
+.after-da{
+  opacity:0;
+  animation:fadeInUp 0.8s ease forwards;
+  animation-delay:3s;
+  font-family: 'Isadora_Cyr', serif;  
+  font-size:60px;
+  text-align:center;
+  margin-top:20px;
+  position:relative;
+}
+.after-da span{display:block;margin-top:8px}
+.after-da::before{
+  content:'';
+  display:block;
+  width:220px;
+  height:2px;
+  background:black;
+  margin:20px auto 0;
+}
+
+@keyframes fadeInUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{to{opacity:1}}
+
+.segmented{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.segmented .option{flex:1;display:flex;align-items:center;gap:8px;padding:10px 14px;border:1.5px solid #e5e5e5;border-radius:14px;cursor:pointer;user-select:none;transition:transform .1s, border-color .2s, box-shadow .2s;justify-content:center}
+.segmented .option:active{transform:scale(.98)}
+
+.field{margin-top:18px}
+input[type=text]{width:100%;padding:12px 14px;border:1.5px solid #e5e5e5;border-radius:12px;font-family:'Isadora_Cyr';font-size:20px}
+.btn{margin-top:16px;padding:12px 20px;border:none;border-radius:12px;background:var(--accent-red);color:#fff;cursor:pointer;font-size:20px;font-family:'Isadora_Cyr'}
+
+.program-title {
+    font-family: 'Isadora_Cyr';
+    font-size: 60px;
+    color: black;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.timeline-wrapper {
+    position: relative;
+    width: 400px;  /* Фиксированная ширина контейнера */
+    height: 600px; /* Фиксированная высота контейнера */
+    margin: 0 auto;
+    
+    /* Добавляем фоновое изображение вместо SVG */
+    background-image: url('image/curve.png'); 
+    background-size: 100% 100%; 
+    background-repeat: no-repeat;
+}
+
+.event {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Isadora_Cyr';
+    color: black;
+    transform: translate(-50%, -50%); /* Центрируем блок события относительно его top/left */
+}
+
+.event .time {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.event .desc {
+    font-family: 'Isadora_Cyr';
+    font-size: 36px;
+    margin-top: 5px;
+}
+
+/* Корректировка выравнивания текста для каждого события */
+.e1 { text-align: right; transform: translate(-170%, -50%); } /* Текст слева */
+.e2 { text-align: left; transform: translate(40%, -50%); }    /* Текст справа */
+.e3 { text-align: right; transform: translate(-230%, -70%); } /* Текст слева */
+.e4 { text-align: left; transform: translate(30%, -50%); }    /* Текст справа */
+
+
+.dresscode{display:flex;gap:200px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.dresscode .color-block{width:70px;height:70px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.25);}
+
+#timer{font-size:120px; letter-spacing: 10px; margin-top:20px;}
+
+
+/* Новые стили для галереи и раздела "О нас" */
+.about-us {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+
+/* Базовые стили */
+.colors-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.color-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.color-block {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  flex-shrink: 0;
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) {
+  .color-row {
+    gap: 6px;
+  }
+  
+  .color-block {
+    width: calc(16.666% - 5px); /* 6 блоков в строке */
+    height: 35px;
+  }
+}
+
+/* Десктопная версия */
+@media (min-width: 769px) {
+  .colors-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .color-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+  }
+}
+
+/* Подсказки */
+.color-block:hover::after {
+  content: attr(data-color);
+  position: absolute;
+  bottom: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 10;
+}
+.couple-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin: 40px 0;
+}
+
+.person {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+
+.person img {
+  width: 200px;
+  height: 200px;
+  border-radius: 40%;
+  object-fit: cover;
+  border: 2px solid var(--accent-red);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+.story {
+  margin: 40px auto;
+  max-width: 700px;
+  font-size: 24px;
+  line-height: 1.6;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 40px 0;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  aspect-ratio: 1 / 1;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-caption {
+  transform: translateY(0);
+}
+.falling-element {
+  position: fixed;
+  top: -50px;
+  pointer-events: none;
+  z-index: 0;
+  animation: fall linear forwards;
+}
+#rsvp {
+  position: relative;
+  z-index: 5;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120svh) rotate(360deg);
+  }
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .falling-element {
+    filter: blur(0.2px);
+  }
+}
+
+/* Стили для формы RSVP */
+.rsvp {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.rsvp .field {
+  margin-bottom: 25px;
+}
+
+.rsvp input[type="text"] {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 12px 15px;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 12px;
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.rsvp .segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.segmented .option.active {
+  border-color: var(--accent-red);
+  background: rgba(192, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(192, 0, 0, 0.25);
+}
+
+.rsvp .option {
+  flex: 1 1 calc(33% - 8px);
+  min-width: 100px;
+  text-align: center;
+  padding: 10px 5px;
+}
+
+.rsvp .btn {
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto 0;
+  display: block;
+}
+
+/* Анимация падения */
+@keyframes fall {
+  0% {
+    transform: translateY(-50px) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg) scale(0.5);
+    opacity: 0;
+  }
+}
+@media(max-width: 768px){
+  .ona{
+    font-size: 130px !important; /* Уменьшаем размер */
+    top: 5% !important; /* Процентное позиционирование */
+    left: 50% !important;
+    transform: translateX(-50%) !important; /* Центрируем */
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+  }
+  
+  .skazala{
+    font-size: 120px !important;
+    top: 20% !important; /* Располагаем ниже "Она" */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+  }
+  
+  .da-text{
+    font-size: 120px !important;
+    margin-top: 40% !important; /* Отступ от "сказала" */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* Немного пространства между буквами */
+    padding-left: 0;
+    line-height: 1;
+    overflow: visible;
+  }
+  
+  .da-letter{
+    min-width: auto;
+  }
+  
+  .da-letter:nth-child(1) {
+    animation-delay: 1.6s;
+  }
+  
+  .da-letter:nth-child(2) {
+    animation-delay: 2.2s;
+  }
+  
+  .after-da{
+    font-size: 32px !important;
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+  
+  .after-da::before{
+    width: 180px;
+    margin: 15px auto;
+  }
+}
+
+/* Для очень маленьких экранов */
+@media(max-width: 480px){
+  .ona{
+    font-size: 90px !important;
+    top: 8% !important;
+  }
+  
+  .skazala{
+    font-size: 80px !important;
+    top: 20% !important;
+  }
+  
+  .da-text{
+    font-size: 80px !important;
+    margin-top: 35% !important;
+  }
+  
+  .after-da{
+    font-size: 24px !important;
+  }
+  
+  .after-da::before{
+    width: 150px;
+  }
+}
+
+/* Для горизонтальной ориентации на мобильных */
+@media(max-width: 768px) and (orientation: landscape) {
+  .ona{
+    font-size: 50px !important;
+    top: 5% !important;
+  }
+  
+  .skazala{
+    font-size: 45px !important;
+    top: 20% !important;
+  }
+  
+  .da-text{
+    font-size: 80px !important;
+    margin-top: 25% !important;
+  }
+  
+  #intro{
+    min-height: 150vh; /* Увеличиваем высоту для ландшафта */
+  }
+}
+  #timer{font-size:40px; letter-spacing: 15px;}
+  h2 {font-size: 40px;}
+}
+@media (max-width: 768px) {
+  .timeline {
+    font-size: 20px;
+    padding-left: 30px;
+    margin-left: 15px;
+  }
+  
+  .event {
+    margin-bottom: 25px;
+    padding-right: 15px;
+  }
+  
+  .event::before {
+    font-size: 20px;
+    left: -22px;
+  }
+  
+  /* Если используете другие элементы */
+  .ona {
+    font-size: 70px;
+    top: 15px;
+    left: 20px;
+  }
+  
+  .skazala {
+    font-size: 60px;
+    top: 110px;
+    left: 20px;
+  }
+  
+  .da-text {
+    font-size: 160px;
+    margin-top: 40px;
+  }
+  
+  .after-da {
+    font-size: 24px;
+  }
+  
+  #timer {
+    font-size: 40px;
+    letter-spacing: 4px;
+  }
+}
+  /* Исправленное выравнивание таймлайна для мобильной версии */
+  .timeline{
+    font-size:30px;
+    padding-left: 40px;
+    margin-left: 100px;
+    margin-right: 40px;
+  }
+  .event::before {
+    left: -40px;
+  }
+  
+  .person { min-width: 100%; }
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.map-container {
+  width: 100%;
+  margin: 20px 0;
+  border-radius: 12px;
+  overflow: hidden; /* Для скругления углов iframe */
+}
+
+.map-container iframe {
+  border: none;
+  display: block;
+}
+@media (max-width: 480px) {
+  .color-block {
+    width: 25px;
+    height: 25px;
+  }
+}
+@media(max-width:480px){
+  .timeline{
+    padding-left: 15px;
+    margin-left: 10px;
+  }
+  .event::before {
+    left: -15px;
+  }
+}
+@media (max-width: 768px) {
+  .rsvp {
+    padding: 20px 15px;
+  }
+  
+  .rsvp input[type="text"] {
+    font-size: 18px;
+    padding: 10px 12px;
+  }
+  
+  .rsvp .option {
+    flex: 1 1 calc(50% - 8px);
+    padding: 8px 5px;
+    font-size: 16px;
+  }
+}
+/* Для ярко-жёлтого цвета - тень потемнее */
+.color-block[style*="ffff00"] {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* Для светло-серого - лёгкая обводка */
+.color-block[style*="cccccc"] {
+  border: 1px solid #eee;
+}
+@media (max-width: 480px) {
+  .rsvp .option {
+    flex: 1 1 100%;
+  }
+}
+body {
+  position: relative;
+}
+
+section {
+  position: relative;
+  z-index: 1;
+}
+
+.falling-element {
+  z-index: 0;
+}
+</style>
+</head>
+<body>
+
+<!-- Падающие сердечки будут создаваться скриптом -->
+<div id="falling-elements"></div>
+
+<section id="intro">
+  <div class="ona">Она</div>
+  <div class="skazala">сказала</div>
+  <div class="da-text">
+    <span class="da-letter">Д</span><span class="da-letter">а</span>
+  </div>
+  <div class="after-da">
+    <span>Приглашение на свадьбу</span>
+    <span>Илья & Катя</span>
+    <span>07.08.2026</span>
+  </div>
+</section>
+
+
+<section id="counter" class="center">
+  <h2>До свадьбы осталось:</h2>
+  <div id="timer"></div>
+</section>
+
+<section class="center">
+    <div class="program-title"><h2>Программа дня:</h2></div>
+    <div class="timeline-wrapper">
+        
+        <!-- События (координаты 0-100% от контейнера) -->
+        <div class="event e1" style="left: 50%; top: 5%;">
+            <span class="time">14:00</span>
+            <span class="desc">Welcome</span>
+        </div>
+        <div class="event e2" style="left: 65%; top: 35%;">
+            <span class="time">15:00</span>
+            <span class="desc">Церемония</span>
+        </div>
+        <div class="event e3" style="left: 40%; top: 70%;">
+            <span class="time">16:00</span>
+            <span class="desc">Банкет</span>
+        </div>
+        <div class="event e4" style="left: 95%; top: 95%;">
+            <span class="time">22:00</span>
+            <span class="desc">Окончание вечера</span>
+        </div>
+
+    </div>
+</section>
+
+
+
+<section id="location" class="center">
+  <h2>Локация</h2>
+  <div class="map-container">
+	<iframe
+	  src="https://yandex.ru/map-widget/v1/?ll=30.61207554356195%2C59.93582332571242&z=16&pt=30.61207554356195,59.93582332571242,pm2rdl"
+	  width="100%"
+	  height="300"
+	  frameborder="0"
+	  allowfullscreen="true"
+	  style="border-radius: 12px; box-shadow: 0 12px 30px rgba(0,0,0,.15);">
+	</iframe>
+
+  </div>
+	<a
+	  href="https://yandex.ru/maps/?ll=30.61207554356195%2C59.93582332571242&z=16&pt=30.61207554356195,59.93582332571242&text=Кролик%20в%20шляпе"
+	  class="btn"
+	  target="_blank">
+	  Проложить маршрут
+	</a>
+
+</section>
+
+<section id="colors" class="center">
+  <h2>Цвета дресс-кода</h2>
+  
+  <div class="colors-grid">
+  <!-- Группа Красных и Насыщенных -->
+
+  <div class="color-row">
+	<div class="color-block" style="background:#880212" data-color="Бордовый"></div>
+	<div class="color-block" style="background:#BB0218" data-color="Вишнёвый"></div>
+	<div class="color-block" style="background:#E5021E" data-color="Красный"></div>
+	<div class="color-block" style="background:#FD5469" data-color="Розовый"></div>
+  </div>
+  <div class="color-row">
+	<div class="color-block" style="background:#FFC200" data-color="Золотой тёмный"></div>
+	<div class="color-block" style="background:#FFE066" data-color="Ярко-жёлтый"></div>
+	<div class="color-block" style="background:#FFF5B7" data-color="Светло-жёлтый"></div>
+	<div class="color-block" style="background:#FFF9E2" data-color="Кремовый"></div>
+  </div>
+  <!-- Тёмные нейтральные -->
+  <div class="color-row">
+	<div class="color-block" style="background:#1A1414" data-color="Чёрный"></div>
+	<div class="color-block" style="background:#3B2F2F" data-color="Графит"></div>
+	<div class="color-block" style="background:#707070" data-color="Серо-коричневый"></div>
+	<div class="color-block" style="background:#ABABAB" data-color="Светло-серый"></div>
+  </div>
+
+  <!-- Светлые / жёлтые -->
+
+  </div>
+</section>
+
+<section id="about" class="about-us">
+  <h2 class="center">Наша история</h2>
+  
+  <div class="couple-info">
+    <div class="person">
+      <img src="ilya.jpg" alt="Илья">
+      <h3>Илья</h3>
+      <p>геолог-нефтяник</p>
+      <p>Любит вкусную еду, компьютерные игры и Катю</p>
+    </div>
+    
+    <div class="person">
+      <img src="image/kate.jpg" alt="Катя">
+      <h3>Катя</h3>
+      <p>разработчик-нефтяник</p>
+      <p>Обожает живопись, путешествовать и проводить время с друзьями</p>
+    </div>
+  </div>
+  
+  <div class="story">
+    <p> Пять лет назад, среди шумного университетского мероприятия, их пути неожиданно пересеклись.</p>
+<p> Илья пришёл туда в поисках вдохновения, новых встреч и ярких моментов, не подозревая, что судьба приготовила ему главную встречу в жизни.</p>
+<p> Катя же организовывала это событие, не зная, что среди множества лиц увидит того самого человека — того, кто однажды станет её самым важным «МЫ».  </p>
+<p> И вот, спустя годы, наполненные сотнями совместных историй, в бескрайних золотых песках Эмиратов, под палящим солнцем, он опустился на одно колено.</p>
+<p> Так началась новая глава их истории — уже навсегда.</p>
+  </div>
+  
+  <h2 class="center">Галерея наших моментов</h2>
+  
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="image/perv.jpg" alt="Первое свидание">
+      <div class="gallery-caption">Наше первое свидание</div>
+    </div>
+    <div class="gallery-item">
+      <img src="image/kal.jpg" alt="Путешествие в горы">
+      <div class="gallery-caption">Путешествие в Зеленоградск</div>
+    </div>
+    <div class="gallery-item">
+      <img src="image/pred.jpg" alt="Предложение">
+      <div class="gallery-caption">Тот самый момент</div>
+    </div>
+    <div class="gallery-item">
+      <img src="image/korp.jpg" alt="Подготовка к свадьбе">
+      <div class="gallery-caption">Новый год в Санкт-Петербурге</div>
+    </div>
+    <div class="gallery-item">
+      <img src="image/sem.jpg" alt="Семейный ужин">
+      <div class="gallery-caption">Семейный ужин</div>
+    </div>
+    <div class="gallery-item">
+      <img src="image/vech.jpg" alt="Вечеринка">
+      <div class="gallery-caption">Вечеринка</div>
+    </div>
+  </div>
+</section>
+
+<section id="rsvp" class="rsvp center">
+  <h2>Подтверждение участия</h2>
+
+  <div class="field">
+    <input type="text" name="name" placeholder="Ваше имя и фамилия" required>
+  </div>
+
+  <div class="field">
+    <p>Сможете ли вы участвовать?</p>
+    <div class="segmented" name="attendance">
+      <div class="option active">Да</div>
+      <div class="option">Нет</div>
+      <div class="option">Не знаю</div>
+    </div>
+  </div>
+
+  <div class="field">
+    <p>Предпочтения по алкоголю:</p>
+    <div class="segmented multiple" name="alcohol">
+      <div class="option">Вино</div>
+      <div class="option">Водка</div>
+      <div class="option">Виски</div>
+      <div class="option">Шампанское</div>
+	  <div class="option">Не пью</div>
+    </div>
+  </div>
+
+  <button class="btn" type="button">Отправить</button>
+
+<script>
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzZOWIKT4_QGH__sdcO58RPHsMvDmJj-ZQoJrT9qMOB5-uIe6Aw_5keu8-nvLEsmgTk/exec';
+
+document.querySelector('#rsvp .btn').addEventListener('click', () => {
+  const name = document.querySelector('#rsvp input[name="name"]').value.trim();
+
+  const attendance = Array.from(document.querySelectorAll('.segmented[name="attendance"] .option'))
+    .find(opt => opt.classList.contains('active'))?.textContent || '';
+
+  const alcohol = Array.from(document.querySelectorAll('.segmented.multiple[name="alcohol"] .option.active'))
+    .map(opt => opt.textContent)
+    .join(', ');
+
+  if (!name) {
+    alert('Пожалуйста, введите имя');
+    return;
+  }
+
+  const formData = { name, attendance, alcohol };
+
+  fetch(scriptURL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify(formData)
+  })
+  .then(() => {
+    alert('Спасибо! Ваш ответ записан.');
+    document.querySelector('#rsvp input[name="name"]').value = '';
+    document.querySelectorAll('.segmented .option').forEach(o => o.classList.remove('active'));
+    document.querySelector('.segmented[name="attendance"] .option:first-child').classList.add('active');
+  })
+  .catch(err => {
+    alert('Ошибка отправки. Попробуйте ещё раз.');
+    console.error(err);
+  });
+});
+</script>
+
+</section>
+
+<script>
+// Таймер до свадьбы
+const weddingDate = new Date('2026-08-07T11:00:00');
+const timerEl = document.getElementById('timer');
+
+function updateTimer(){
+  const now = new Date();
+  const diff = weddingDate - now;
+  if(diff <= 0){
+    timerEl.innerHTML = 'Свадьба уже началась!';
+    clearInterval(timerInterval);
+    return;
+  }
+  const days = Math.floor(diff/1000/60/60/24);
+  const hours = Math.floor(diff/1000/60/60)%24;
+  const minutes = Math.floor(diff/1000/60)%60;
+  const seconds = Math.floor(diff/1000)%60;
+  timerEl.innerHTML = `${days}д  ${hours}ч  ${minutes}м  ${seconds}с`;
+}
+const timerInterval = setInterval(updateTimer,1000);
+updateTimer();
+
+// Появление таймлайна после анимации "да"
+setTimeout(()=>document.getElementById('timeline').classList.add('visible'),3500);
+
+// Выбор опций
+document.querySelectorAll('.segmented .option').forEach(option => {
+  option.addEventListener('click', () => {
+    const parent = option.parentElement;
+    if(parent.classList.contains('multiple')){
+      option.classList.toggle('active');
+    } else {
+      parent.querySelectorAll('.option').forEach(o => o.classList.remove('active'));
+      option.classList.add('active');
+    }
+  });
+});
+
+// Анимация галереи при прокрутке
+function animateOnScroll() {
+  const elements = document.querySelectorAll('.gallery-item, .person, .story');
+  const windowHeight = window.innerHeight;
+  
+  elements.forEach(element => {
+    const elementPosition = element.getBoundingClientRect().top;
+    const elementVisible = 150;
+    
+    if (elementPosition < windowHeight - elementVisible) {
+      element.style.opacity = "1";
+      element.style.transform = "translateY(0)";
+    }
+  });
+}
+
+// Начальные стили для анимации
+document.querySelectorAll('.gallery-item, .person, .story').forEach(el => {
+  el.style.opacity = "0";
+  el.style.transform = "translateY(30px)";
+  el.style.transition = "all 0.6s ease";
+});
+
+window.addEventListener('scroll', animateOnScroll);
+window.addEventListener('load', animateOnScroll);
+
+const isMobile = window.innerWidth < 768;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function createHeart() {
+  if (document.querySelectorAll('.falling-element').length > 25) return;
+
+  const heart = document.createElement('div');
+  heart.innerHTML = '❤';
+  heart.className = 'falling-element';
+
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.fontSize = (Math.random() * (isMobile ? 150 : 70) + 10) + 'px';
+  heart.style.color = `rgba(192,0,0,${Math.random()*10})`;
+  heart.style.animationDuration = (Math.random() * (isMobile ? 2 : 3) + 2) + 's';
+
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+
+if (!prefersReducedMotion) {
+  setInterval(createHeart, isMobile ? 800 : 100);
+}
+
+</script>
+</body>
+</html>
